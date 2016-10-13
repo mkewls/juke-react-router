@@ -9,7 +9,7 @@ const mapStateToProps = ({ albums }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  go: album => dispatch(fetchAndGoToAlbum(album))
+  go: cookie => dispatch(fetchAndGoToAlbum(cookie))
 });
 
 export default connect(

@@ -9,8 +9,8 @@ export default class Album extends React.Component {
     this.props.getTheAlbum(this.props.params.albumId);
   }
 
-
   render() {
+    console.log('props', this.props, 'selectedAlbum', { selectedAlbum })
     const { selectedAlbum } = this.props;
     return
     (

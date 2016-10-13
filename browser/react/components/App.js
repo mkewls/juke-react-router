@@ -30,8 +30,6 @@ export default class App extends Component {
     const { location } = this.props;
 
     return (
-
-
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
           <SidebarContainer />
@@ -39,14 +37,6 @@ export default class App extends Component {
         <div className="col-xs-10">
           {
             this.props.children
-            // (() => {
-            //   switch (location) {
-            //     case 'albums': return <AlbumsContainer />
-            //     case 'artists': return <ArtistsContainer />
-            //     case 'album': return <AlbumContainer />
-            //     case 'artist': return <ArtistContainer />
-            //   }
-            // })()
           }
         </div>
         <PlayerContainer />

@@ -24482,15 +24482,6 @@
 	          'div',
 	          { className: 'col-xs-10' },
 	          this.props.children
-	          // (() => {
-	          //   switch (location) {
-	          //     case 'albums': return <AlbumsContainer />
-	          //     case 'artists': return <ArtistsContainer />
-	          //     case 'album': return <AlbumContainer />
-	          //     case 'artist': return <ArtistContainer />
-	          //   }
-	          // })()
-	
 	        ),
 	        _react2.default.createElement(_PlayerContainer2.default, null)
 	      );
@@ -24644,8 +24635,8 @@
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    go: function go(album) {
-	      return dispatch((0, _albums.fetchAndGoToAlbum)(album));
+	    go: function go(cookie) {
+	      return dispatch((0, _albums.fetchAndGoToAlbum)(cookie));
 	    }
 	  };
 	};
@@ -24851,6 +24842,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log('props', this.props, 'selectedAlbum', { selectedAlbum: selectedAlbum });
 	      var selectedAlbum = this.props.selectedAlbum;
 	
 	      return;

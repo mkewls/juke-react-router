@@ -24845,8 +24845,7 @@
 	      console.log('props', this.props, 'selectedAlbum', { selectedAlbum: selectedAlbum });
 	      var selectedAlbum = this.props.selectedAlbum;
 	
-	      return;
-	      _react2.default.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { className: 'album' },
 	        _react2.default.createElement(

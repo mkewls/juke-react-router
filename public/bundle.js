@@ -72,6 +72,10 @@
 	
 	var _ArtistsContainer2 = _interopRequireDefault(_ArtistsContainer);
 	
+	var _AlbumContainer = __webpack_require__(224);
+	
+	var _AlbumContainer2 = _interopRequireDefault(_AlbumContainer);
+	
 	var _reactRouter = __webpack_require__(237);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -87,6 +91,7 @@
 	      { path: '/', component: _AppContainer2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _AlbumsContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'albums', component: _AlbumsContainer2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'albums/:albumId', component: _AlbumContainer2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'artists', component: _ArtistsContainer2.default })
 	    )
 	  )
@@ -24556,7 +24561,7 @@
 	  return _react2.default.createElement(
 	    'sidebar',
 	    null,
-	    _react2.default.createElement('img', { src: 'juke.svg', className: 'logo' }),
+	    _react2.default.createElement('img', { src: '../../juke.svg', className: 'logo' }),
 	    _react2.default.createElement(
 	      'section',
 	      null,
@@ -24722,7 +24727,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchAndGoToAlbum = exports.receiveAlbum = exports.receiveAlbums = undefined;
+	exports.fetchAndGoToAlbumID = exports.fetchAndGoToAlbum = exports.receiveAlbum = exports.receiveAlbums = undefined;
 	
 	var _constants = __webpack_require__(190);
 	
@@ -24752,6 +24757,17 @@
 	    });
 	  };
 	};
+	
+	var fetchAndGoToAlbumID = exports.fetchAndGoToAlbumID = function fetchAndGoToAlbumID(id) {
+	  return function (dispatch) {
+	    return fetch('/api/albums/' + id).then(function (res) {
+	      return res.json();
+	    }).then(function (album) {
+	      dispatch(receiveAlbum(album));
+	      dispatch((0, _location.switchLocation)('album'));
+	    });
+	  };
+	};
 
 /***/ },
 /* 224 */
@@ -24769,6 +24785,8 @@
 	
 	var _Album2 = _interopRequireDefault(_Album);
 	
+	var _albums = __webpack_require__(223);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(_ref) {
@@ -24778,7 +24796,15 @@
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Album2.default);
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    getTheAlbum: function getTheAlbum(albumId) {
+	      return dispatch((0, _albums.fetchAndGoToAlbumID)(albumId));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Album2.default);
 
 /***/ },
 /* 225 */
@@ -24790,6 +24816,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -24800,24 +24828,54 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (_ref) {
-	  var selectedAlbum = _ref.selectedAlbum;
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'album' },
-	    _react2.default.createElement(
-	      'div',
-	      null,
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Album = function (_React$Component) {
+	  _inherits(Album, _React$Component);
+	
+	  function Album() {
+	    _classCallCheck(this, Album);
+	
+	    return _possibleConstructorReturn(this, (Album.__proto__ || Object.getPrototypeOf(Album)).apply(this, arguments));
+	  }
+	
+	  _createClass(Album, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getTheAlbum(this.props.params.albumId);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var selectedAlbum = this.props.selectedAlbum;
+	
+	      return;
 	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        selectedAlbum.name
-	      ),
-	      _react2.default.createElement('img', { src: selectedAlbum.imageUrl, className: 'img-thumbnail' })
-	    ),
-	    _react2.default.createElement(_SongsContainer2.default, { songs: selectedAlbum.songs })
-	  );
-	};
+	        'div',
+	        { className: 'album' },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            selectedAlbum.name
+	          ),
+	          _react2.default.createElement('img', { src: selectedAlbum.imageUrl, className: 'img-thumbnail' })
+	        ),
+	        _react2.default.createElement(_SongsContainer2.default, { songs: selectedAlbum.songs })
+	      );
+	    }
+	  }]);
+	
+	  return Album;
+	}(_react2.default.Component);
+	
+	exports.default = Album;
 
 /***/ },
 /* 226 */
@@ -24911,7 +24969,7 @@
 	    _react2.default.createElement(
 	      'tbody',
 	      null,
-	      songs.map(function (song) {
+	      songs && songs.map(function (song) {
 	        return _react2.default.createElement(
 	          'tr',
 	          { key: song.id },

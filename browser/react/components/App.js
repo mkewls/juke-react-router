@@ -32,7 +32,6 @@ export default class App extends Component {
     return (
 
 
-
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
           <SidebarContainer />

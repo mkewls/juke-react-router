@@ -5,10 +5,20 @@ import ReactDOM from 'react-dom';
 import store from './store';
 import { Provider } from 'react-redux';
 import AppContainer from './containers/AppContainer';
+import AlbumsContainer from './containers/AlbumsContainer';
+import ArtistsContainer from './containers/ArtistsContainer';
+import { Router, hashHistory, IndexRoute, Route } from 'react-router';
+
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppContainer /> 
+    <Router history = {hashHistory}>
+      <Route path="/" component={AppContainer}>
+        <IndexRoute component={AlbumsContainer} />
+        <Route path="albums" component={AlbumsContainer} />
+        <Route path="artists" component={ArtistsContainer} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app')
 );
